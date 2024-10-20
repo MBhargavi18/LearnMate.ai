@@ -4,5 +4,8 @@ streamlit_card
 pillow~=10.4.0
 google.generativeai
 protobuf~=5.28.2
-google_auth_oauthlib
 requests
+streamlit-card
+PyPDF2
+docx
+exceptions
