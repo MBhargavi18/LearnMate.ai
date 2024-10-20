@@ -1,0 +1,9 @@
+{
+  "AWSDockerrunVersion": "1",
+  "Image": {
+    "Name": "anirudh06/aimate"
+  },
+  "Ports":[
+  {"ContainerPort": "8972"}
+  ]
+}

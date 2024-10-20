@@ -1,0 +1,8 @@
+streamlit~=1.39.0
+streamlit-option-menu
+streamlit_card
+pillow~=10.4.0
+google.generativeai
+protobuf~=5.28.2
+google_auth_oauthlib
+requests
