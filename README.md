@@ -1,4 +1,5 @@
 # LearnMate.ai 🤖🦾
+[![getting started](https://img.shields.io/badge/getting_started-guide-1D76DB)](https://docs.abblix.com/docs/getting-started-guide)
 
 **LearnMate.ai** is inspired by the challenges that students face while preparing for multiple exams across various subjects.
 We recognized the need for a personalized, AI-driven solution that could help students to organize their study time efficiently,
@@ -86,4 +87,4 @@ Also you can checkout Docker image on DockerHub: [learnmate-ai](https://hub.dock
 ## Conclusion
 Congratulations! You have successfully run the application 🚀️.
 
-To view the GolemAI app 👉 https://learnmate-ai.streamlit.app/
+To view the LearnMate.ai app 👉 https://learnmate-ai.streamlit.app/
