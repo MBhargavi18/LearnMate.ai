@@ -65,7 +65,7 @@ You can check out the deployed link: [learnmate-ai.us-east-1.elasticbeanstalk.co
 
 ## Getting Started
 ### Prerequisites
-- Python 3.7+
+- Python 3.9+
 - Streamlit
 - Google Generative AI API access
 - Docker
