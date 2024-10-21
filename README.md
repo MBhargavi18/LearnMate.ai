@@ -48,7 +48,7 @@ AWS Diagram:
 ![image](https://github.com/user-attachments/assets/018e2593-8815-4caa-ad4f-1a61c36fc103)
 
 The application has been deployed using Elastic BeansTalk using Docker image.
-You can check out the link: learnmate-ai.us-east-1.elasticbeanstalk.com
+You can check out the link: (learnmate-ai.us-east-1.elasticbeanstalk.com)
 
 
 ## Getting Started
