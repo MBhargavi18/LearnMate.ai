@@ -76,7 +76,7 @@ You can check out the deployed link: [learnmate-ai.us-east-1.elasticbeanstalk.co
    ```bash
    python3 -m streamlit run learnmate.py
  
-Also you can checkout Docker image on DockeHub: [learnmate-ai](https://hub.docker.com/repository/docker/anirudh06/learnmate-ai/general)
+Also you can checkout Docker image on DockerHub: [learnmate-ai](https://hub.docker.com/repository/docker/anirudh06/learnmate-ai/general)
 ## Conclusion
 Congratulations! You have successfully run the application 🚀️.
 
