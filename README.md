@@ -6,7 +6,7 @@ taking into account their current knowledge level, preparation level and the tim
 This also provides additional features like Resume Analysis and Quiz practices
 
 ## Demo
-
+https://youtu.be/E4OwwxeHJ3Q
 
 ## Intro
 **LearnMate.ai** is a revolutionary study planning tool that empowers students to achieve academic success. By inputting their subjects,
