@@ -1,5 +1,5 @@
 # LearnMate.ai 🤖🦾
-[![language](https://img.shields.io/badge/language-Python%23-239120)](https://www.python.org/)
+[![language](https://img.shields.io/pypi/pyversions/python)](https://www.python.org/)
 [![OS](https://img.shields.io/badge/OS-linux%2C%20windows%2C%20macOS-0078D4)](https://docs.abblix.com/docs/technical-requirements)
 [![CPU](https://img.shields.io/badge/CPU-x86%2C%20x64%2C%20ARM%2C%20ARM64-FF8C00)](https://docs.abblix.com/docs/technical-requirements)
 [![security rating](https://sonarcloud.io/api/project_badges/measure?project=Abblix_Oidc.Server&metric=security_rating)](https://sonarcloud.io/summary/overall?id=Abblix_Oidc.Server)
