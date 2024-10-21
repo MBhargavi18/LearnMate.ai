@@ -5,8 +5,10 @@ We recognized the need for a personalized, AI-driven solution that could help st
 taking into account their current knowledge level, preparation level and the time available before exams.
 This also provides additional features like Resume Analysis and Quiz practices
 
+
 ## Demo
 https://youtu.be/E4OwwxeHJ3Q
+
 
 ## Intro
 **LearnMate.ai** is a revolutionary study planning tool that empowers students to achieve academic success. By inputting their subjects,
@@ -14,6 +16,7 @@ preparation levels, and exam dates, students can harness the power of Google's G
 recommendations. The tool then generates a visually appealing and Interactive study schedule, complete with a variety of resources such
 as videos, articles, and practice problems. To enhance engagement and understanding, study materials are presented in an engaging card format,
 accompanied by informative Images and estimated completion times. Aso this integrates resume analyzer and quiz practice features.
+
 
 ## LearnMate.ai takes study planning to the next level. Here's how:
 1) Seamless Al Integration: We leverage Google's powerful Gemini Al to analyze
@@ -44,7 +47,8 @@ accompanied by informative Images and estimated completion times. Aso this integ
 	 With LearnMate.al, you get a study planning tool that's as powerful as it is user- friendly, empowering you to
    conquer your academic journey!
 
-AWS Diagram:
+
+## AWS Diagram:
 ![image](https://github.com/user-attachments/assets/018e2593-8815-4caa-ad4f-1a61c36fc103)
 
 The application has been deployed on AWS Elastic BeansTalk using Docker image.
@@ -75,8 +79,10 @@ You can check out the deployed link: [learnmate-ai.us-east-1.elasticbeanstalk.co
 2. Run the app:
    ```bash
    python3 -m streamlit run learnmate.py
- 
+
 Also you can checkout Docker image on DockerHub: [learnmate-ai](https://hub.docker.com/repository/docker/anirudh06/learnmate-ai/general)
+
+
 ## Conclusion
 Congratulations! You have successfully run the application 🚀️.
 
