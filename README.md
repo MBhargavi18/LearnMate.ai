@@ -1,4 +1,4 @@
-![learnm](https://github.com/user-attachments/assets/394e565e-c569-4ea2-b13c-2b4ef7266afa)
+<img src="https://github.com/user-attachments/assets/394e565e-c569-4ea2-b13c-2b4ef7266afa" style="width:700px;height:400px;"> 
 
 [![language](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)](https://www.python.org/)
 [![PyCharm](https://img.shields.io/badge/pycharm-143?style=for-the-badge&logo=pycharm&logoColor=black&color=black&labelColor=green)](https://www.jetbrains.com/pycharm/)
