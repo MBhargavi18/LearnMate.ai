@@ -1,15 +1,11 @@
 # LearnMate.ai 🤖🦾
-[![language](https://img.shields.io/pypi/pyversions/python)](https://www.python.org/)
-[![OS](https://img.shields.io/badge/OS-linux%2C%20windows%2C%20macOS-0078D4)](https://docs.abblix.com/docs/technical-requirements)
-[![CPU](https://img.shields.io/badge/CPU-x86%2C%20x64%2C%20ARM%2C%20ARM64-FF8C00)](https://docs.abblix.com/docs/technical-requirements)
-[![security rating](https://sonarcloud.io/api/project_badges/measure?project=Abblix_Oidc.Server&metric=security_rating)](https://sonarcloud.io/summary/overall?id=Abblix_Oidc.Server)
-[![reliability rating](https://sonarcloud.io/api/project_badges/measure?project=Abblix_Oidc.Server&metric=reliability_rating)](https://sonarcloud.io/summary/overall?id=Abblix_Oidc.Server)
-[![maintainability rating](https://sonarcloud.io/api/project_badges/measure?project=Abblix_Oidc.Server&metric=sqale_rating)](https://sonarcloud.io/summary/overall?id=Abblix_Oidc.Server)
-[![CodeQL analysis](https://github.com/Abblix/Oidc.Server/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/Abblix/Oidc.Server/security/code-scanning?query=is%3Aopen)
-[![GitHub release](https://img.shields.io/github/v/release/Abblix/Oidc.Server)](#)
-[![GitHub release date](https://img.shields.io/github/release-date/Abblix/Oidc.Server)](#)
-[![GitHub last commit](https://img.shields.io/github/last-commit/Abblix/Oidc.Server)](#)
+[![language](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)](https://www.python.org/)
+![PyCharm](https://img.shields.io/badge/pycharm-143?style=for-the-badge&logo=pycharm&logoColor=black&color=black&labelColor=green)
+![Streamlit](https://img.shields.io/badge/Streamlit-%23FE4B4B.svg?style=for-the-badge&logo=streamlit&logoColor=white)
+![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white)
+![AWS](https://img.shields.io/badge/AWS-%23FF9900.svg?style=for-the-badge&logo=amazon-aws&logoColor=white)
 
+## Overview
 **LearnMate.ai** is inspired by the challenges that students face while preparing for multiple exams across various subjects.
 We recognized the need for a personalized, AI-driven solution that could help students to organize their study time efficiently,
 taking into account their current knowledge level, preparation level and the time available before exams.
@@ -28,7 +24,8 @@ as videos, articles, and practice problems. To enhance engagement and understand
 accompanied by informative Images and estimated completion times. Aso this integrates resume analyzer and quiz practice features.
 
 
-## LearnMate.ai takes study planning to the next level. Here's how:
+## Features
+### LearnMate.ai takes study planning to the next level. Here's how:
 1) Seamless Al Integration: We leverage Google's powerful Gemini Al to analyze
    your inputs, creating a smooth and transparent bridge between user data and
 	 personalized recommendations.
