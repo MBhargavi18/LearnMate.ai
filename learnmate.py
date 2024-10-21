@@ -292,9 +292,7 @@ def main():
 			as videos, articles, and practice problems. To enhance engagement and
 			understanding, study materials are presented in an engaging card format,
 			accompanied by informative Images and estimated completion times.
-			Moreover, StudyAssistAl seamlessly Integrates with Google Calendar,
-			providing students with a streamlined and efficient way to manage their
-			academic commitments.
+			Aso this integrates resume analyzer and quiz practice features.
 			"""
 		)
 		st.markdown(
