@@ -44,6 +44,11 @@ accompanied by informative Images and estimated completion times. Aso this integ
 	 With LearnMate.al, you get a study planning tool that's as powerful as it is user- friendly, empowering you to
    conquer your academic journey!
 
+AWS Diagram:
+![image](https://github.com/user-attachments/assets/bf5285c7-e13c-4ad5-93cb-e7ac2f2d786e)
+The application has been deployed using Elastic BeansTalk using Docker image.
+You can check out the link: learnmate-ai.us-east-1.elasticbeanstalk.com
+
 
 ## Getting Started
 ### Prerequisites
