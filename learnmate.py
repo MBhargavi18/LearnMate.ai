@@ -11,6 +11,7 @@ import streamlit as st
 from PIL import Image
 from streamlit_card import card
 from streamlit_option_menu import option_menu
+from pypdf import PdfReader
 
 st.set_page_config(
 	page_title="LearnMate.ai", page_icon="✧˖°📖🌐"
@@ -18,12 +19,13 @@ st.set_page_config(
 
 with st.sidebar:
 	pages = option_menu("Navigate to",
-						["Intro", "About", "Get started"])
+						["Intro", "About", "Exam Prepation Sources", "Resume Analyzer", "Quiz Practice"])
 API_KEY = st.sidebar.text_input(
 	"Enter the Google Gemini api key (You can get or create gemini api key [here](https://makersuite.google.com/app/apikey)): ",
 	type="password")
 
 genai.configure(api_key=API_KEY)
+
 
 def load_gemini_model():
 	return genai.GenerativeModel('gemini-pro')
@@ -39,7 +41,6 @@ def parse_duration(duration_str):
 	return 60
 
 
-
 def get_gemini_ai_recommendations(subject, level, days_left):
 	prompt = f"""
     Suggest 3 study resources for a student with the following criteria:
@@ -48,7 +49,7 @@ def get_gemini_ai_recommendations(subject, level, days_left):
     - Days left until exam: {days_left}
 
     Consider the time constraint and preparation level.
-    If time is short, prioritize valid and available quick review materials.
+    If time is short, prioritize valid and available quick review materials from valid websites.
     For longer time frames, suggest more available and accurate comprehensive resources.
     Please don't give unavailable resources appropriate (youtube videos, course, article)
     Use the following JSON format:
@@ -97,47 +98,165 @@ def generate_study_schedule(subjects, levels, exam_dates):
 				'image_url': rec['image_url'],
 				'type': rec['type']
 			})
-			
+	
 	st.session_state['study_schedule'] = schedule
 	return schedule
-	
-	# return schedule
+
+
+# return schedule
 
 def display_study_schedule(schedule):
-    st.subheader("Your Study Schedule")
-    cols = st.columns(3)
-    for index, item in enumerate(schedule):
-        with cols[index % 3]:
-            icon = "📺" if item['type'].lower() == 'video' else "📄" if item['type'].lower() == 'article' else "🎓"
-            card(
-                title=f"{icon} {item['title']}",
-                text=f"{item['duration']} minutes | {item['type']}",
-                image=item['image_url'],
-                url=item['url'],
-                key=f"card_{index}_{item['title']}_{uuid4()}",  # Ensure the key is unique
-                styles={"card": {"width": "100%", "height": "100%", "border-radius": "10px",
-                                 "box-shadow": "0 0 10px rgba(0,0,0,0.1)"}}
-            )
-            with st.expander("More Info", expanded=False):
-                st.write(f"Subject: {item['subject']}")
-                st.write(f"Duration: {item['duration']} minutes")
-                st.write(f"Type: {item['type']}")
-                st.write(f"URL: {item['url']}")
-				
-# def get_image_from_url(url):
-# 	try:
-# 		response = requests.get(url)
-# 		img = Image.open(BytesIO(response.content))
-# 		# img = Image.open(BytesIO(response))
-# 		return img
-# 	except:
-# 		return None
+	st.subheader("Your Study Schedule")
+	cols = st.columns(3)
+	for index, item in enumerate(schedule):
+		with cols[index % 3]:
+			icon = "📺" if item['type'].lower() == 'video' else "📄" if item['type'].lower() == 'article' else "🎓"
+			card(
+				title=f"{icon} {item['title']}",
+				text=f"{item['duration']} minutes | {item['type']}",
+				image=item['image_url'],
+				url=item['url'],
+				key=f"card_{index}_{item['title']}_{uuid4()}",  # Ensure the key is unique
+				styles={"card": {"width": "100%", "height": "100%", "border-radius": "10px",
+								 "box-shadow": "0 0 10px rgba(0,0,0,0.1)"}}
+			)
+			with st.expander("More Info", expanded=False):
+				st.write(f"Subject: {item['subject']}")
+				st.write(f"Duration: {item['duration']} minutes")
+				st.write(f"Type: {item['type']}")
+				st.write(f"URL: {item['url']}")
 
+
+
+def extract_resume_text(file):
+	"""Extract text from PDF or DOCX files."""
+	if file.type == "application/pdf":
+		reader = PdfReader(file)
+		text = ""
+		for page in reader.pages:
+			text += page.extract_text()
+	elif file.type == "application/vnd.openxmlformats-officedocument.wordprocessingml.document":
+		doc = docx.Document(file)
+		text = "\n".join([paragraph.text for paragraph in doc.paragraphs])
+	else:
+		raise ValueError("Unsupported file format")
+	return text
+
+
+def get_resume_analysis(resume_text, job_role):
+	prompt = f"""
+    A user has applied for the job role of {job_role}. Their résumé contains the following information:
+
+    {resume_text}
+
+    Provide a concise and human-readable analysis of the following:
+    - List the most important skills the user lacks in one sentence.
+    - Short suggestions for improving the résumé in one to two sentences.
+    - Recommend two learning resources for the user to improve their knowledge (title and URL).
+
+    The response should be formatted for readability with proper headings and in plain text.
+    """
+	
+	try:
+		response = model.generate_content(prompt)
+		return response.text
+	except Exception as e:
+		st.error(f"Error processing the AI request: {e}")
+		return "No analysis available."
+
+
+def fetch_quiz_questions_gemini(job_role, difficulty_level):
+	prompt = f"""
+    Generate a quiz with 10 questions for the job role of {job_role} at {difficulty_level} difficulty.
+    Each question should have 4 options (A, B, C, D), and specify the correct answer.
+    Respond ONLY with a JSON array of objects like this:
+    [
+        {{"question": "Question text", "options": ["Option A", "Option B", "Option C", "Option D"], "correct_answer": "Option A"}}
+    ]
+    """
+	response_text = model.generate_content(prompt).text
+	
+	try:
+		questions = json.loads(response_text)
+		return questions
+	except (json.JSONDecodeError, ValueError) as e:
+		st.error(f"Failed to parse AI response: {e}")
+		return None
+
+def chat_with_gemini(question, user_answer=None):
+	if user_answer:
+		prompt = f"User answered: {user_answer}. The question was: {question['question']}."
+	else:
+		prompt = f"Question: {question['question']}."
+	
+	response = model.generate_content(prompt).text
+	return response
+
+def quiz_app():
+	st.header("Quiz Section")
+	
+	if 'quiz_questions' not in st.session_state:
+		job_role = st.text_input("Enter the job role for the quiz")
+		difficulty_level = st.selectbox("Select the difficulty level", ["easy", "medium", "hard"])
+		
+		if st.button("Start Quiz"):
+			if job_role:
+				st.session_state['quiz_questions'] = fetch_quiz_questions_gemini(job_role, difficulty_level)
+				st.session_state['current_question_index'] = 0
+				st.session_state['score'] = 0
+				st.session_state['chat_history'] = []
+				st.session_state['quiz_active'] = True
+				
+				if st.session_state['quiz_questions'] is not None:
+					st.success("Quiz started! Chat with the AI below.")
+					display_chat_interface()
+				else:
+					st.warning("No questions available. Please try again.")
+			else:
+				st.warning("Please enter a job role for the quiz.")
+	else:
+		display_chat_interface()
+
+
+def display_chat_interface():
+	if 'chat_history' not in st.session_state:
+		st.session_state['chat_history'] = []
+	
+	for entry in st.session_state['chat_history']:
+		if entry['role'] == 'ai':
+			st.markdown(f"**AI:** {entry['content']}")
+		else:
+			st.markdown(f"**You:** {entry['content']}")
+	
+	if 'current_question_index' in st.session_state and st.session_state['quiz_active']:
+		question = st.session_state['quiz_questions'][st.session_state['current_question_index']]
+		st.markdown(f"**Q{st.session_state['current_question_index'] + 1}: {question['question']}**")
+		
+		options = question['options']
+		selected_option = st.selectbox("Choose an option:", options, key="option_selector")
+		
+		if st.button("Submit Answer"):
+			st.session_state['chat_history'].append({'role': 'user', 'content': selected_option})
+			
+			if selected_option == question['correct_answer']:
+				st.session_state['score'] += 1
+			
+			ai_response = chat_with_gemini(question, selected_option)
+			st.session_state['chat_history'].append({'role': 'ai', 'content': ai_response})
+			
+			st.session_state['current_question_index'] += 1
+			
+			if st.session_state['current_question_index'] < len(st.session_state['quiz_questions']):
+				pass
+			else:
+				st.success("Quiz completed!")
+				st.write(f"You scored {st.session_state['score']}/{len(st.session_state['quiz_questions'])}!")
+				st.session_state['quiz_active'] = False
 
 def main():
 	if 'study_schedule' not in st.session_state:
 		st.session_state['study_schedule'] = None
-		
+	
 	if pages == "Intro":
 		st.snow()
 		st.title("LearnMate.ai: :rainbow[Study smarter with an AI study assistant]")
@@ -155,6 +274,8 @@ def main():
 			that could help students to organize their study time efficiently,
 			taking into account their current knowledge level, preparation level
 			and the time available before exams.
+			
+			This also provides additional features like Resume Analysis and Quiz practices
 			"""
 		)
 	
@@ -203,13 +324,18 @@ def main():
 			5) Balance Is Key: We understand the importance of providing detailed information without overwhelming you.
 			LearnMate.al offers a clean and uncluttered interface, striking the perfect balance between content richness
 			and user experience.
-
+			
+			6) This provides Resume Analysis as an additional feature which is crucial to get
+			shortlisted for the interviews. This also suggests **key skills lacking, resume
+			improvement suggestions and learning resources.
+			
+			7) In the Quiz Section, you can select the job role to practice the quiz and also select the difficulty level
 			With LearnMate.al, you get a study planning tool that's as powerful as it is user- friendly, empowering you to
 			conquer your academic journey!
 			""")
 	
 	
-	elif pages == "Get started":
+	elif pages == "Exam Prepation Sources":
 		
 		st.header("Get started")
 		st.markdown(
@@ -243,85 +369,37 @@ def main():
 			if all(subjects) and all(exam_date > datetime.now().date() for exam_date in exam_dates):
 				with st.spinner("Generating study schedule..."):
 					schedule = generate_study_schedule(subjects, levels, exam_dates)
-					# display_study_schedule(schedule)
+				# display_study_schedule(schedule)
 			else:
 				st.error("Please fill in all subjects and select future exam dates.")
 		
-		# Display the stored study schedule if it exists
 		if st.session_state['study_schedule']:
 			display_study_schedule(st.session_state['study_schedule'])
+	
+	elif pages == "Resume Analyzer":
+		st.subheader("Resume Analyzer")
+		
+		uploaded_file = st.file_uploader("Upload your resume (PDF or DOCX)", type=["pdf", "docx"])
+		
+		job_role = st.text_input("Enter the job role you are applying for")
+		if st.button("Analyze your resume"):
+			resume_text = extract_resume_text(uploaded_file)
 			
+			with st.spinner("Analyzing résumé..."):
+				analysis = get_resume_analysis(resume_text, job_role)
+			
+			st.markdown(f"### Résumé Analysis for {job_role}")
+			st.markdown(analysis)
+
+			
+		else:
+			st.info("Please upload a resume and enter the job role.")
+	
+	elif pages == "Quiz Practice":
+		quiz_app()
+
+
 if __name__ == "__main__":
 	main()
-		# for i in range(num_subjects):
-		# 	col1, col2, col3 = st.columns(3)
-		# 	with col1:
-		# 		subject = st.text_input(f"Subject {i + 1}")
-		# 		subjects.append(subject)
-		# 	with col2:
-		# 		level = st.selectbox(f"Preparation level for {subject}", ["worst", "good", "great"], key=f"level_{i}")
-		# 		prep_levels.append(level)
-		# 	with col3:
-		# 		exam_date = st.date_input(f"Exam date for {subject}", key=f"exam_date_{i}")
-		# 		exam_dates.append(exam_date)
-		#
-		# if st.button("Find Resources to study"):
-		# 	if all(subjects) and all(exam_date > datetime.now().date() for exam_date in exam_dates):
-		# 		# if 'study_schedule' not in st.session_state:
-		# 		# 	st.session_state.study_schedule = []
-		# 		with st.spinner("Generating study schedule..."):
-		# 			schedule = recommend_study_schedule(subjects, prep_levels, exam_dates)
-		# 			display_study_schedule(schedule)
-					# schedule = recommend_study_schedule(subjects, prep_levels, exam_dates)
-					# st.session_state.study_schedule.extend(schedule)
-					# recommend_study_schedule(schedule)
-					
-			# 		st.markdown(
-			# 			"""
-			# 			---
-			# 			"""
-			# 		)
-			#
-			# 		st.subheader("Your Study Schedule")
-			#
-			# 		cols = st.columns(3)
-			#
-			# 		for index, item in enumerate(schedule):
-			#
-			# 			with cols[index % 3]:
-			# 				icon = "📺" if item['type'].lower() == 'video' else "📄" if item[
-			# 																			  'type'].lower() == 'article' else "🎓"
-			#
-			# 				card(
-			# 					title=f"{icon} {item['title']}",
-			# 					text=f"{item['duration']} minutes | {item['type']}",
-			# 					image=item['image_url'],
-			# 					url=item['url'],
-			# 					styles={
-			# 						"card": {
-			# 							"width": "100%",
-			# 							"height": "100%",
-			# 							"border-radius": "10px",
-			# 							"box-shadow": "0 0 10px rgba(0,0,0,0.1)",
-			# 						},
-			# 						"filter": {
-			# 							"background-color": "rgba(0,0,0,0.2)",
-			# 						}
-			# 					},
-			# 					key=f"card_{index}"
-			# 				)
-			#
-			# 				with st.expander("More Info"):
-			# 					st.write(f"Subject: {item['subject']}")
-			# 					st.write(f"Duration: {item['duration']} minutes")
-			# 					st.write(f"Type: {item['type']}")
-			# 					st.write(f"URL: {item['image']}")
-			# else:
-			# 	st.error("Please fill in all the subjects and also select future exam dates.")
-		
-		# if st.session_state['study_schedule']:
-		# 	display_study_schedule(st.session_state['study_schedule'])
-			
-
 
 # AIzaSyCWUXHCAVRyuWsIAd338OZ6Q0ZplowFQG8
