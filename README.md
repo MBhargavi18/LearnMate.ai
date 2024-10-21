@@ -1,4 +1,4 @@
-# LearnMate.ai 🤖
+# LearnMate.ai 🤖🦾
 
 **LearnMate.ai** is inspired by the challenges that students face while preparing for multiple exams across various subjects.
 We recognized the need for a personalized, AI-driven solution that could help students to organize their study time efficiently,
