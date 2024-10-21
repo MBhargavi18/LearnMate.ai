@@ -3,8 +3,8 @@
 **LearnMate.ai** is inspired by the challenges that students face while preparing for multiple exams across various subjects.
 We recognized the need for a personalized, AI-driven solution that could help students to organize their study time efficiently,
 taking into account their current knowledge level, preparation level and the time available before exams.
-			
-			This also provides additional features like Resume Analysis and Quiz practices
+This also provides additional features like Resume Analysis and Quiz practices
+
 ## Demo
 
 
