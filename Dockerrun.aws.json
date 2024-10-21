@@ -1,9 +1,9 @@
 {
-  "AWSDockerrunVersion": "1",
+  "AWSEBDockerrunVersion": "1",
   "Image": {
-    "Name": "anirudh06/aimate"
+    "Name": "anirudh06/learnmate"
   },
   "Ports":[
-  {"ContainerPort": "8972"}
+  {"ContainerPort": "8501"}
   ]
 }
