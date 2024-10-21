@@ -45,7 +45,8 @@ accompanied by informative Images and estimated completion times. Aso this integ
    conquer your academic journey!
 
 AWS Diagram:
-![image](https://github.com/user-attachments/assets/bf5285c7-e13c-4ad5-93cb-e7ac2f2d786e)
+![image](https://github.com/user-attachments/assets/018e2593-8815-4caa-ad4f-1a61c36fc103)
+
 The application has been deployed using Elastic BeansTalk using Docker image.
 You can check out the link: learnmate-ai.us-east-1.elasticbeanstalk.com
 
