@@ -71,10 +71,10 @@ You can check out the deployed link: [learnmate-ai.us-east-1.elasticbeanstalk.co
    cd LearnMate.ai
    python3 -m venv venv
    pip install -r requirements.txt
+   
 2. Run the app:
    ```bash
    python3 -m streamlit run learnmate.py
-
  
 Also you can checkout Docker image on DockeHub: [learnmate-ai](https://hub.docker.com/repository/docker/anirudh06/learnmate-ai/general)
 ## Conclusion
