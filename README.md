@@ -73,4 +73,4 @@ accompanied by informative Images and estimated completion times. Aso this integ
 ## Conclusion
 Congratulations! You have successfully run the application 🚀️.
 
-To view the GolemAI app 👉 https://golemai.streamlit.app/
+To view the GolemAI app 👉 https://learnmate-ai.streamlit.app/
