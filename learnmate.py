@@ -18,8 +18,7 @@ st.set_page_config(
 )
 
 with st.sidebar:
-	pages = option_menu("Navigate to",
-						["Intro", "About", "Exam Prepation Sources", "Resume Analyzer", "Quiz Practice"])
+	pages = option_menu("Navigate to",["Intro", "About", "Exam Prepation Sources", "Resume Analyzer", "Quiz Practice"])
 API_KEY = st.sidebar.text_input(
 	"Enter the Google Gemini api key (You can get or create gemini api key [here](https://makersuite.google.com/app/apikey)): ",
 	type="password")
@@ -399,5 +398,3 @@ def main():
 
 if __name__ == "__main__":
 	main()
-
-# AIzaSyCWUXHCAVRyuWsIAd338OZ6Q0ZplowFQG8
