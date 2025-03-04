@@ -23,7 +23,7 @@ API_KEY = st.sidebar.text_input(
 	"Enter the Google Gemini api key (You can get or create gemini api key [AIzaSyC7qpsSKysdqqE7tn-FxpW71h83Dkt3UtY](https://makersuite.google.com/app/apikey)): ",
 	type="password")
 
-genai.configure(api_key=API_KEY)
+genai.configure(api_key="AIzaSyC7qpsSKysdqqE7tn-FxpW71h83Dkt3UtY")
 
 
 def load_gemini_model():
