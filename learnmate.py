@@ -258,7 +258,7 @@ def main():
 	
 	if pages == "Intro":
 		
-		st.title("LearnMate.ai: [Study smarter with an AI study assistant]")
+		st.title("LearnMate.ai::rainbow [Study smarter with an AI study assistant]")
 		
 		st.subheader("Are you ready to elevate your "
 					 "learning to the next level? Welcome to the "
