@@ -257,7 +257,7 @@ def main():
 		st.session_state['study_schedule'] = None
 	
 	if pages == "Intro":
-		st.snow()
+		
 		st.title("LearnMate.ai: :rainbow[Study smarter with an AI study assistant]")
 		
 		st.subheader("Are you ready to elevate your "
